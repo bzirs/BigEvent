@@ -2,14 +2,16 @@
  * @Author: bzirs
  * @Date: 2022-12-17 17:47:36
  * @LastEditors: bzirs
- * @LastEditTime: 2022-12-17 17:48:39
+ * @LastEditTime: 2022-12-17 22:24:29
  * @FilePath: /big-event/src/utils/request.js
  * @Description: axios 第一次封装
  * @
  * @Copyright (c) 2022 by bzirs, All Rights Reserved.
  */
 
+import router from '@/router'
 import axios from 'axios'
+import { Message } from 'element-ui'
 import { getToken } from './token'
 
 const request = axios.create({
@@ -35,6 +37,15 @@ request.interceptors.response.use(function (response) {
   return response.data
 }, function (error) {
   // 超出 2xx 范围的状态码都会触发该函数。
+  const { response: { status, data: { message } } } = error
+
+  if (status === 401) router.push('/login')
+
+  Message({
+    showClose: true,
+    message,
+    type: 'error'
+  })
   // 对响应错误做点什么
   return Promise.reject(error)
 })
