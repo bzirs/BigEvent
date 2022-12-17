@@ -2,7 +2,7 @@
  * @Author: bzirs
  * @Date: 2022-12-15 20:15:19
  * @LastEditors: bzirs
- * @LastEditTime: 2022-12-17 20:44:09
+ * @LastEditTime: 2022-12-17 21:17:40
  * @FilePath: /big-event/src/router/index.js
  * @Description:
  * @

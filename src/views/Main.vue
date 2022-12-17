@@ -2,9 +2,9 @@
  * @Author: bzirs
  * @Date: 2022-12-15 20:43:54
  * @LastEditors: bzirs
- * @LastEditTime: 2022-12-17 20:41:27
+ * @LastEditTime: 2022-12-17 22:08:24
  * @FilePath: /big-event/src/views/Main.vue
- * @Description:
+ * @Description: 主页
  *
  * Copyright (c) 2022 by bzirs, All Rights Reserved.
 -->
@@ -19,39 +19,62 @@
         <span>欢迎~史蒂夫水</span>
       </div>
       <!-- 导航菜单 -->
-      <el-menu background-color="#23262E" default-active="/" router unique-opened>
-        <el-menu-item index="/">
-          <i class="el-icon-s-home"></i>
-          <span slot="title">首页</span>
-        </el-menu-item>
-        <!-- 文章管理 -->
-        <el-submenu index="1">
-          <template slot="title">
-            <i class="el-icon-location"></i>
-            <span>导航一</span>
-          </template>
-          <el-menu-item-group>
-            <el-menu-item index="1-1">选项1</el-menu-item>
-            <el-menu-item index="1-2">选项2</el-menu-item>
-          </el-menu-item-group>
-        </el-submenu>
-        <!-- 用户中心管理 -->
-        <el-submenu index="2">
-          <template slot="title">
-            <i class="el-icon-location"></i>
-            <span>导航一</span>
-          </template>
-          <el-menu-item-group>
-            <el-menu-item index="1-1">选项1</el-menu-item>
-            <el-menu-item index="1-2">选项2</el-menu-item>
-          </el-menu-item-group>
-        </el-submenu>
+      <el-menu background-color="#23262E" :default-active="$route.path" router unique-opened text-color="#fff">
+
+        <template v-for="it in asideList">
+          <!-- 首页 -->
+          <el-menu-item :index="it.indexPath" :key="it.title" v-if="!it.children">
+            <i :class="it.icon"></i>
+            <span slot="title">{{ it.title }}</span>
+          </el-menu-item>
+          <!-- 文章和用户中心管理 -->
+          <el-submenu :key="it.title" :index="it.indexPath" v-else>
+            <template slot="title">
+              <i :class="it.icon"></i>
+              <span>{{ it.title }}</span>
+            </template>
+            <el-menu-item-group>
+              <el-menu-item :index="item.indexPath" v-for="item in it.children" :key="item.indexPath">
+                <i :class="item.icon"></i>
+                <span>{{ item.title }}</span>
+              </el-menu-item>
+            </el-menu-item-group>
+          </el-submenu>
+        </template>
       </el-menu>
     </el-aside>
     <!-- 右侧 -->
     <el-container>
       <!-- 右侧顶部 -->
-      <el-header>Header</el-header>
+      <el-header>
+        <!-- logo -->
+        <div class="logo"></div>
+        <!-- 右侧menu菜单 -->
+        <el-menu mode="horizontal" router :default-active="$route.path">
+          <el-submenu index="">
+            <template slot="title">
+              <el-avatar :size="50" src="https://cdn.jsdelivr.net/gh/xbzirs/handsome/images/blogavatar.jpg"
+                class="avatar"></el-avatar>
+              个人中心</template>
+            <el-menu-item index="/user-info">
+              <i class="el-icon-s-operation"></i>
+              <span slot="title">基本资料</span>
+            </el-menu-item>
+            <el-menu-item index="/user-avatar">
+              <i class="el-icon-camera"></i>
+              <span slot="title">更换头像</span>
+            </el-menu-item>
+            <el-menu-item index="/user-pwd">
+              <i class="el-icon-key"></i>
+              <span slot="title">重置密码</span>
+            </el-menu-item>
+          </el-submenu>
+          <el-menu-item index="4">
+            <i class="el-icon-switch-button"></i>
+            <span slot="title">退出</span>
+          </el-menu-item>
+        </el-menu>
+      </el-header>
       <!-- 右侧主体 -->
       <el-main>
         <router-view></router-view>
@@ -63,16 +86,21 @@
 </template>
 
 <script>
+import { getAside } from '@/api/home'
 export default {
   name: 'MainPage',
   components: {},
   props: {},
   data () {
     return {
-
+      // 左侧菜单栏列表
+      asideList: []
     }
   },
-  async created () {},
+  async created () {
+    const { data } = await getAside()
+    this.asideList = data
+  },
   mounted () {},
   activated () {},
   updated () {},
