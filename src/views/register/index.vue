@@ -2,7 +2,7 @@
  * @Author: bzirs
  * @Date: 2022-12-15 20:41:20
  * @LastEditors: bzirs
- * @LastEditTime: 2022-12-15 21:59:12
+ * @LastEditTime: 2022-12-17 17:45:35
  * @FilePath: /big-event/src/views/register/index.vue
  * @Description:
  *
@@ -16,19 +16,21 @@
       <!-- 标题的盒子 -->
       <div class="title-box"></div>
       <!-- 注册的表单区域 -->
-      <el-form>
-        <el-form-item>
-          <el-input placeholder="请输入用户名" prefix-icon="el-icon-user"></el-input>
+      <el-form :model="registerObj" ref="registerFormRules" :rules="registerObjRules">
+        <el-form-item prop="username">
+          <el-input placeholder="请输入用户名" prefix-icon="el-icon-user" v-model="registerObj.username"></el-input>
+        </el-form-item>
+        <el-form-item prop="password">
+          <el-input show-password placeholder="请输入密码" prefix-icon="el-icon-lock"
+            v-model="registerObj.password"></el-input>
+        </el-form-item>
+        <el-form-item prop="repassword">
+          <el-input show-password placeholder="请再次确认密码" prefix-icon="el-icon-lock"
+            v-model="registerObj.repassword"></el-input>
         </el-form-item>
         <el-form-item>
-          <el-input placeholder="请输入密码" prefix-icon="el-icon-lock"></el-input>
-        </el-form-item>
-        <el-form-item>
-          <el-input placeholder="请再次确认密码" prefix-icon="el-icon-lock"></el-input>
-        </el-form-item>
-        <el-form-item>
-          <el-button type="primary" class="btn-reg">注册</el-button>
-          <el-link type="primary" href="./login">有账号了捏?去登录嘛</el-link>
+          <el-button type="primary" class="btn-reg" @click="toRegister">注册</el-button>
+          <el-link type="primary" href="#/login">有账号了捏?去登录嘛</el-link>
         </el-form-item>
       </el-form>
     </div>
@@ -37,7 +39,49 @@
 
 <script>
 export default {
-  name: 'RegisterPage'
+  name: 'RegisterPage',
+  data () {
+    return {
+      // 注册
+      registerObj: {
+        username: '',
+        password: '',
+        repassword: ''
+      },
+      // 注册正则
+      registerObjRules: {
+        username: [
+          { required: true, message: '请输入用户名捏', trigger: 'blur' },
+          { pattern: /^\w{1,10}$/, message: '用户名必须1到10个字符捏~giegie', trigger: 'blur' }
+        ],
+        password: [
+          { required: true, message: '请输入密码捏', trigger: 'blur' },
+          { pattern: /^\w{6,15}$/, message: '密码必须6到15个字符捏~giegie', trigger: 'blur' }
+        ],
+        repassword: [
+          { required: true, message: '请再次输入密码捏', trigger: 'blur' },
+          { pattern: /^\w{6,15}$/, message: '确认密码必须6到15个字符捏~giegie', trigger: 'blur' },
+          {
+            validator: (rule, value, callback) => {
+              if (this.registerObj.password === value) {
+                callback()
+              } else {
+                callback(new Error('两次密码都不一样宁也敢注册账号?'))
+              }
+            },
+            trigger: 'blur'
+          }
+        ]
+      }
+    }
+  },
+  methods: {
+    toRegister () {
+      this.$refs.registerFormRules.validate((valid) => {
+
+      })
+    }
+  }
 }
 </script>
 
