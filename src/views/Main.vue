@@ -2,7 +2,7 @@
  * @Author: bzirs
  * @Date: 2022-12-15 20:43:54
  * @LastEditors: bzirs
- * @LastEditTime: 2022-12-17 22:08:24
+ * @LastEditTime: 2022-12-17 22:17:19
  * @FilePath: /big-event/src/views/Main.vue
  * @Description: 主页
  *
@@ -80,7 +80,8 @@
         <router-view></router-view>
       </el-main>
       <!-- 右侧页脚 -->
-      <el-footer>Footer</el-footer>
+      <el-footer>© www.itheima.com - 黑马程序员 . author by&nbsp;<el-link href="https://github.com/bzirs"
+          type=" primary">bzirs</el-link></el-footer>
     </el-container>
   </el-container>
 </template>
