@@ -1,3 +1,13 @@
+/**
+ * @Author: bzirs
+ * @Date: 2022-12-15 20:15:19
+ * @LastEditors: bzirs
+ * @LastEditTime: 2022-12-17 20:44:09
+ * @FilePath: /big-event/src/router/index.js
+ * @Description:
+ * @
+ * @Copyright (c) 2022 by bzirs, All Rights Reserved.
+ */
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 
@@ -17,12 +27,13 @@ const routes = [
   { path: '/', redirect: '/main' },
   { path: '/login', component: login, name: 'login' },
   { path: '/register', component: register, name: 'register' },
-  { path: '/home', component: home, name: 'home' },
   {
     path: '/main',
     component: main,
     name: 'main',
     children: [
+      { path: '/', redirect: '/home' },
+      { path: '/home', component: home, name: 'home' },
       { path: '/art-cate', component: articlecate, name: 'articlecate' },
       { path: '/art-list', component: articlelist, name: 'articlelist' },
       { path: '/user-avatar', component: avatar, name: 'avatar' },

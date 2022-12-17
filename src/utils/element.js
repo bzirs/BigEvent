@@ -2,7 +2,7 @@
  * @Author: bzirs
  * @Date: 2022-12-15 20:30:54
  * @LastEditors: bzirs
- * @LastEditTime: 2022-12-15 20:30:56
+ * @LastEditTime: 2022-12-17 20:27:08
  * @FilePath: /big-event/src/utils/element.js
  * @Description: elementui 组件注册
  * @
@@ -14,6 +14,7 @@ import {
   Pagination,
   Dialog,
   Autocomplete,
+  Avatar,
   Dropdown,
   DropdownMenu,
   DropdownItem,
@@ -119,6 +120,7 @@ Vue.use(TableColumn)
 Vue.use(DatePicker)
 Vue.use(TimeSelect)
 Vue.use(TimePicker)
+Vue.use(Avatar)
 Vue.use(Popover)
 Vue.use(Tooltip)
 Vue.use(Breadcrumb)
