@@ -2,9 +2,9 @@
  * @Author: bzirs
  * @Date: 2022-12-17 17:46:33
  * @LastEditors: bzirs
- * @LastEditTime: 2022-12-17 17:49:41
- * @FilePath: /big-event/src/api/register.js
- * @Description:  注册api
+ * @LastEditTime: 2022-12-17 17:57:57
+ * @FilePath: /big-event/src/api/user.js
+ * @Description:  用户 api
  * @
  * @Copyright (c) 2022 by bzirs, All Rights Reserved.
  */

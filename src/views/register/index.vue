@@ -2,7 +2,7 @@
  * @Author: bzirs
  * @Date: 2022-12-15 20:41:20
  * @LastEditors: bzirs
- * @LastEditTime: 2022-12-17 17:45:35
+ * @LastEditTime: 2022-12-17 19:37:36
  * @FilePath: /big-event/src/views/register/index.vue
  * @Description:
  *
@@ -38,6 +38,7 @@
 </template>
 
 <script>
+import { userRegister } from '@/api/user'
 export default {
   name: 'RegisterPage',
   data () {
@@ -77,8 +78,20 @@ export default {
   },
   methods: {
     toRegister () {
-      this.$refs.registerFormRules.validate((valid) => {
+      this.$refs.registerFormRules.validate(async (valid) => {
+        // 注册
+        if (valid) {
+          const { message, code } = await userRegister(this.registerObj)
 
+          this.$message({
+            showClose: true,
+            message,
+            type: code ? 'error' : 'success'
+          })
+
+          // 根据code判断是否注册成功 跳转
+          !code && this.$router.push('/login')
+        }
       })
     }
   }
