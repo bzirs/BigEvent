@@ -2,7 +2,7 @@
  * @Author: bzirs
  * @Date: 2022-12-15 20:43:54
  * @LastEditors: bzirs
- * @LastEditTime: 2022-12-17 22:17:19
+ * @LastEditTime: 2022-12-18 20:48:15
  * @FilePath: /big-event/src/views/Main.vue
  * @Description: 主页
  *
@@ -14,9 +14,10 @@
     <el-aside width="200px">
       <!-- 头像 -->
       <div class="user-box">
-        <el-avatar :size="50" src="https://cdn.jsdelivr.net/gh/xbzirs/handsome/images/blogavatar.jpg"
+        <el-avatar v-if="userInfo.user_pic" :size="50" :src="userInfo.user_pic" class="avatar"></el-avatar>
+        <el-avatar v-else :size="50" src="https://cdn.jsdelivr.net/gh/xbzirs/handsome/images/blogavatar.jpg"
           class="avatar"></el-avatar>
-        <span>欢迎~史蒂夫水</span>
+        <span>欢迎回家~{{ userInfo.nickname || userInfo.username }}</span>
       </div>
       <!-- 导航菜单 -->
       <el-menu background-color="#23262E" :default-active="$route.path" router unique-opened text-color="#fff">
@@ -53,23 +54,17 @@
         <el-menu mode="horizontal" router :default-active="$route.path">
           <el-submenu index="">
             <template slot="title">
-              <el-avatar :size="50" src="https://cdn.jsdelivr.net/gh/xbzirs/handsome/images/blogavatar.jpg"
+              <el-avatar v-if="userInfo.user_pic" :size="50" :src="userInfo.user_pic" class="avatar"></el-avatar>
+              <el-avatar v-else :size="50" src="https://cdn.jsdelivr.net/gh/xbzirs/handsome/images/blogavatar.jpg"
                 class="avatar"></el-avatar>
               个人中心</template>
-            <el-menu-item index="/user-info">
-              <i class="el-icon-s-operation"></i>
-              <span slot="title">基本资料</span>
-            </el-menu-item>
-            <el-menu-item index="/user-avatar">
-              <i class="el-icon-camera"></i>
-              <span slot="title">更换头像</span>
-            </el-menu-item>
-            <el-menu-item index="/user-pwd">
-              <i class="el-icon-key"></i>
-              <span slot="title">重置密码</span>
+
+            <el-menu-item :index="item.indexPath" v-for="item in asideList[2].children" :key="item.indexPath">
+              <i :class="item.icon"></i>
+              <span>{{ item.title }}</span>
             </el-menu-item>
           </el-submenu>
-          <el-menu-item index="4">
+          <el-menu-item index="" @click="logout">
             <i class="el-icon-switch-button"></i>
             <span slot="title">退出</span>
           </el-menu-item>
@@ -81,13 +76,15 @@
       </el-main>
       <!-- 右侧页脚 -->
       <el-footer>© www.itheima.com - 黑马程序员 . author by&nbsp;<el-link href="https://github.com/bzirs"
-          type=" primary">bzirs</el-link></el-footer>
+          type=" primary">bzirs</el-link>
+      </el-footer>
     </el-container>
   </el-container>
 </template>
 
 <script>
 import { getAside } from '@/api/home'
+import { mapState } from 'vuex'
 export default {
   name: 'MainPage',
   components: {},
@@ -99,14 +96,36 @@ export default {
     }
   },
   async created () {
+    // 获取左侧列表
     const { data } = await getAside()
     this.asideList = data
+
+    // 获取用户信息
+    this.$store.dispatch('user/setUserInfo')
   },
   mounted () {},
   activated () {},
   updated () {},
-  methods: {},
-  computed: {},
+  methods: {
+    // 退出登录
+    async logout () {
+      try {
+        await this.$confirm('真滴要离开偶嘛?', '登出提醒', {
+          confirmButtonText: '确定',
+          cancelButtonText: '取消',
+          type: 'warning'
+        })
+
+        this.$router.push('/login')
+        this.$store.commit('user/updateToken', null)
+      } catch (error) {
+        console.log(error)
+      }
+    }
+  },
+  computed: {
+    ...mapState('user', ['userInfo'])
+  },
   watch: {},
   directives: {}
 }

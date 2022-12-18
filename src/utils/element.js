@@ -2,7 +2,7 @@
  * @Author: bzirs
  * @Date: 2022-12-15 20:30:54
  * @LastEditors: bzirs
- * @LastEditTime: 2022-12-17 20:27:08
+ * @LastEditTime: 2022-12-18 20:34:17
  * @FilePath: /big-event/src/utils/element.js
  * @Description: elementui 组件注册
  * @
@@ -88,11 +88,13 @@ import {
   Loading,
   MessageBox,
   Message,
-  Notification
+  Notification,
+  Popconfirm
 } from 'element-ui'
 
 Vue.use(Pagination)
 Vue.use(Dialog)
+Vue.use(Popconfirm)
 Vue.use(Autocomplete)
 Vue.use(Dropdown)
 Vue.use(DropdownMenu)
