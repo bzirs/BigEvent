@@ -2,7 +2,7 @@
  * @Author: bzirs
  * @Date: 2022-12-17 19:52:53
  * @LastEditors: bzirs
- * @LastEditTime: 2022-12-18 20:03:44
+ * @LastEditTime: 2022-12-18 22:35:44
  * @FilePath: /big-event/src/store/user.js
  * @Description:   用户状态管理
  * @

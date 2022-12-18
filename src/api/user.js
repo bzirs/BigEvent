@@ -2,7 +2,7 @@
  * @Author: bzirs
  * @Date: 2022-12-17 17:46:33
  * @LastEditors: bzirs
- * @LastEditTime: 2022-12-17 22:22:19
+ * @LastEditTime: 2022-12-18 21:55:42
  * @FilePath: /big-event/src/api/user.js
  * @Description:  用户 api
  * @
@@ -19,3 +19,6 @@ export const userLogin = obj => request.post('/api/login', obj)
 
 // 用户信息获取
 export const getUserInfo = _ => request.get('/my/userinfo')
+
+// 更新用户信息
+export const setUserInfo = obj => request.put('/my/userinfo', obj)
