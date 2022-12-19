@@ -2,7 +2,7 @@
  * @Author: bzirs
  * @Date: 2022-12-15 20:43:54
  * @LastEditors: bzirs
- * @LastEditTime: 2022-12-18 20:48:15
+ * @LastEditTime: 2022-12-19 10:59:49
  * @FilePath: /big-event/src/views/Main.vue
  * @Description: 主页
  *
@@ -58,11 +58,12 @@
               <el-avatar v-else :size="50" src="https://cdn.jsdelivr.net/gh/xbzirs/handsome/images/blogavatar.jpg"
                 class="avatar"></el-avatar>
               个人中心</template>
-
-            <el-menu-item :index="item.indexPath" v-for="item in asideList[2].children" :key="item.indexPath">
-              <i :class="item.icon"></i>
-              <span>{{ item.title }}</span>
-            </el-menu-item>
+            <template v-if="asideList[2]">
+              <el-menu-item :index="item.indexPath" v-for="item in asideList[2].children" :key="item.indexPath">
+                <i :class="item.icon"></i>
+                <span>{{ item.title }}</span>
+              </el-menu-item>
+            </template>
           </el-submenu>
           <el-menu-item index="" @click="logout">
             <i class="el-icon-switch-button"></i>
