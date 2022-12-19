@@ -2,7 +2,7 @@
  * @Author: bzirs
  * @Date: 2022-12-15 20:37:13
  * @LastEditors: bzirs
- * @LastEditTime: 2022-12-19 17:07:27
+ * @LastEditTime: 2022-12-19 17:28:14
  * @FilePath: /big-event/src/views/article/ArtCate.vue
  * @Description: 文章分类
  *
@@ -153,15 +153,23 @@ export default {
     },
     // 分类删除
     async handleDelete (id) {
-      await this.$confirm('此操作将永久删除该分类, 是否继续?', '提示', {
-        confirmButtonText: '确定',
-        cancelButtonText: '取消',
-        type: 'warning'
-      })
-      const { code, message } = await delArticleSort(id)
-      this.promptDialog(code, message)
-      // 获取文章分类
-      this.getArticleList()
+      try {
+        await this.$confirm('此操作将永久删除该分类, 是否继续?', '提示', {
+          confirmButtonText: '确定',
+          cancelButtonText: '取消',
+          type: 'warning'
+        })
+        const { code, message } = await delArticleSort(id)
+        this.promptDialog(code, message)
+
+        // 获取文章分类
+        this.getArticleList()
+      } catch (error) {
+        this.$message({
+          type: 'info',
+          message: '已取消操作'
+        })
+      }
     }
   },
   computed: {
