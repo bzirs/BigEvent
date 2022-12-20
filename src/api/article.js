@@ -2,7 +2,7 @@
  * @Author: bzirs
  * @Date: 2022-12-19 15:04:04
  * @LastEditors: bzirs
- * @LastEditTime: 2022-12-19 21:58:24
+ * @LastEditTime: 2022-12-20 11:58:41
  * @FilePath: /big-event/src/api/article.js
  * @Description: 文章相关api
  * @
@@ -31,3 +31,9 @@ export const getArticleList = obj => request.get('/my/article/list', { params: o
 
 // 删除文章
 export const delArticle = id => request.delete('/my/article/info', { params: { id } })
+
+// 发布文章
+export const publishedArticle = fdObj => request.post('/my/article/add', fdObj)
+
+// 获取文章详情
+export const getArticleDetail = id => request.get('/my/article/info', { params: { id } })
